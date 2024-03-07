@@ -32,6 +32,9 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
               name="customerId"
               className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               defaultValue=""
+              // aria-describedby="customer-error": This establishes a relationship between the select element and the error message container.
+              // It indicates that the container with id="customer-error" describes the select element.
+              // Screen readers will read this description when the user interacts with the select box to notify them of errors.
               aria-describedby="customer-error"
             >
               <option value="" disabled>
@@ -46,6 +49,16 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
             <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
           </div>
           {/* Error Message */}
+
+          {/**
+           * id="customer-error": This id attribute uniquely identifies the HTML element that holds the error message for the select input.
+           * This is necessary for aria-describedby to establish the relationship.
+           */}
+
+          {/**
+           * aria-live="polite": The screen reader should politely notify the user when the error inside the div is updated.
+           * When the content changes (e.g. when a user corrects an error), the screen reader will announce these changes, but only when the user is idle so as not to interrupt them.
+           */}
           <div id="customer-error" aria-live="polite" aria-atomic="true">
             {state.errors?.customerId &&
               state.errors.customerId.map((error: string) => (
